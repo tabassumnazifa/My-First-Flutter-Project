@@ -32,6 +32,12 @@ class HomeActivity extends StatelessWidget {
         toolbarOpacity: 1,
         elevation: 100,
         backgroundColor: Colors.blue,
+        actions: [
+          IconButton(onPressed: (){}, icon: Icon (Icons.comment)),
+           IconButton(onPressed: (){}, icon: Icon (Icons.search)),
+            IconButton(onPressed: (){}, icon: Icon (Icons.email)),
+
+        ],
         
       ),
   
