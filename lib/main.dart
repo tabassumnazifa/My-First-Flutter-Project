@@ -20,7 +20,9 @@ class HomeActivity extends StatelessWidget {
 
   void MySearchbar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
+      SnackBar(
+        content: Text(message),
+      ),
     );
   }
 
@@ -35,6 +37,7 @@ class HomeActivity extends StatelessWidget {
         toolbarOpacity: 1,
         elevation: 100,
         backgroundColor: Colors.blue,
+
         actions: [
           IconButton(
             onPressed: () {
@@ -42,12 +45,14 @@ class HomeActivity extends StatelessWidget {
             },
             icon: const Icon(Icons.comment),
           ),
+
           IconButton(
             onPressed: () {
               MySearchbar(context, "I am search");
             },
             icon: const Icon(Icons.search),
           ),
+
           IconButton(
             onPressed: () {
               MySearchbar(context, "I am email");
@@ -61,6 +66,7 @@ class HomeActivity extends StatelessWidget {
         elevation: 10,
         backgroundColor: Colors.pink,
         child: const Icon(Icons.add),
+
         onPressed: () {
           MySearchbar(context, "I am action button");
         },
@@ -68,29 +74,74 @@ class HomeActivity extends StatelessWidget {
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
+
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: "Home",
           ),
+
           BottomNavigationBarItem(
             icon: Icon(Icons.message),
             label: "Contact",
           ),
+
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: "Profile",
           ),
         ],
+
         onTap: (int index) {
           if (index == 0) {
             MySearchbar(context, "I am home bottom menu");
-          } else if (index == 1) {
+          } 
+          
+          else if (index == 1) {
             MySearchbar(context, "I am contact bottom menu");
-          } else if (index == 2) {
+          } 
+          
+          else if (index == 2) {
             MySearchbar(context, "I am profile bottom menu");
           }
         },
+      ),
+
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              child: Text("nazifa"),
+            ),
+
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text("Home"),
+
+              onTap: () {
+                MySearchbar(context, "Home Drawer");
+              },
+            ),
+
+            ListTile(
+              leading: Icon(Icons.contact_page),
+              title: Text("Contact"),
+
+              onTap: () {
+                MySearchbar(context, "Contact Drawer");
+              },
+            ),
+
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text("Profile"),
+
+              onTap: () {
+                MySearchbar(context, "Profile Drawer");
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
