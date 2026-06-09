@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-main() {
+void main() {
   runApp(const MyApp());
 }
 
@@ -9,8 +9,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomeActivity(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const HomeActivity(),
     );
   }
 }
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
 class HomeActivity extends StatelessWidget {
   const HomeActivity({super.key});
 
-  void MySearchbar(BuildContext context, String message) {
+  // SnackBar Function
+  void showMessage(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
@@ -29,61 +31,253 @@ class HomeActivity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      // AppBar
       appBar: AppBar(
-        title: const Text("Inventory App"),
-        titleSpacing: 0,
-        centerTitle: true,
-        toolbarHeight: 100,
-        toolbarOpacity: 1,
-        elevation: 100,
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.white,
+        elevation: 0,
+
+        title: const Text(
+          "Inventory App",
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
 
         actions: [
-          IconButton(
-            onPressed: () {
-              MySearchbar(context, "I am comment");
-            },
-            icon: const Icon(Icons.comment),
-          ),
 
           IconButton(
-            onPressed: () {
-              MySearchbar(context, "I am search");
-            },
             icon: const Icon(Icons.search),
+
+            onPressed: () {
+              showMessage(context, "Search Clicked");
+            },
           ),
 
           IconButton(
+            icon: const Icon(Icons.notifications_none),
+
             onPressed: () {
-              MySearchbar(context, "I am email");
+              showMessage(context, "Notification Clicked");
             },
-            icon: const Icon(Icons.email),
           ),
         ],
       ),
 
+      // Left Drawer
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+
+            UserAccountsDrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.blue,
+              ),
+
+              accountName: const Text("Nazifa Tabassum"),
+              accountEmail: const Text("tnazifa003@gmail.com"),
+
+              currentAccountPicture: const CircleAvatar(
+                backgroundColor: Colors.white,
+
+                child: Icon(
+                  Icons.person,
+                  color: Colors.blue,
+                  size: 40,
+                ),
+              ),
+            ),
+
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text("Home"),
+
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text("Profile"),
+
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text("Settings"),
+
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+
+      // Right Drawer
+      endDrawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.black,
+              ),
+
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+
+                  Icon(
+                    Icons.dashboard,
+                    color: Colors.white,
+                    size: 45,
+                  ),
+
+                  SizedBox(height: 10),
+
+                  Text(
+                    "Quick Menu",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            ListTile(
+              leading: const Icon(Icons.favorite_border),
+              title: const Text("Favorites"),
+
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text("Logout"),
+
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+
+      // Minimal Body
+      body: Column(
+        children: [
+
+          const Spacer(),
+
+          const Icon(
+            Icons.inventory_2_outlined,
+            size: 90,
+            color: Colors.blue,
+          ),
+
+          const SizedBox(height: 20),
+
+          const Text(
+            "Inventory Dashboard",
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+
+          const SizedBox(height: 10),
+
+          const Text(
+            "Manage your products easily",
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 16,
+            ),
+          ),
+
+          const Spacer(),
+
+          // Bottom Body Content
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(20),
+
+            decoration: const BoxDecoration(
+              color: Color(0xfff5f5f5),
+
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+            ),
+
+            child: Column(
+              children: const [
+
+                Text(
+                  "Today's Overview",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                SizedBox(height: 15),
+
+                Text(
+                  "120 Products • 08 Orders • 15 Customers",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+
+      // Floating Button
       floatingActionButton: FloatingActionButton(
-        elevation: 10,
-        backgroundColor: Colors.pink,
+        backgroundColor: Colors.blue,
+
         child: const Icon(Icons.add),
 
         onPressed: () {
-          MySearchbar(context, "I am action button");
+          showMessage(context, "Add Button Clicked");
         },
       ),
 
+      // Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
 
         items: const [
+
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: "Home",
           ),
 
           BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: "Contact",
+            icon: Icon(Icons.inventory_2),
+            label: "Products",
           ),
 
           BottomNavigationBarItem(
@@ -92,56 +286,20 @@ class HomeActivity extends StatelessWidget {
           ),
         ],
 
-        onTap: (int index) {
+        onTap: (index) {
+
           if (index == 0) {
-            MySearchbar(context, "I am home bottom menu");
-          } 
-          
+            showMessage(context, "Home");
+          }
+
           else if (index == 1) {
-            MySearchbar(context, "I am contact bottom menu");
-          } 
-          
+            showMessage(context, "Products");
+          }
+
           else if (index == 2) {
-            MySearchbar(context, "I am profile bottom menu");
+            showMessage(context, "Profile");
           }
         },
-      ),
-
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              child: Text("nazifa"),
-            ),
-
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text("Home"),
-
-              onTap: () {
-                MySearchbar(context, "Home Drawer");
-              },
-            ),
-
-            ListTile(
-              leading: Icon(Icons.contact_page),
-              title: Text("Contact"),
-
-              onTap: () {
-                MySearchbar(context, "Contact Drawer");
-              },
-            ),
-
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text("Profile"),
-
-              onTap: () {
-                MySearchbar(context, "Profile Drawer");
-              },
-            ),
-          ],
-        ),
       ),
     );
   }
